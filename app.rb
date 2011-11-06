@@ -11,7 +11,7 @@ end
 post '/' do
   begin
     content_type :json
-    db = Sequel.connect db_url
+    db = Sequel.connect params["db"]
     results = db[params["sql"]].all
     if not results.empty?
       { 

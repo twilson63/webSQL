@@ -29,7 +29,7 @@
       :erb
         $('form').bind 'submit', ->
           $('#results').html 'Running Query....' 
-          $.post '/', sql: $('textarea').val(), ((body) -> 
+          $.post '/', { db: $('input').val(), sql: $('textarea').val() }, ((body) -> 
             if body.error?
               $('#results').html(body.error)
             else
