@@ -2,8 +2,6 @@ require 'sinatra'
 require 'sequel'
 require 'json'
 
-db_url = 'tinytds://cpadmin:stars@174.129.140.194/gct_prod'
-
 get '/' do
   haml :index
 end
