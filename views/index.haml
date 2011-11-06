@@ -1,0 +1,9 @@
+.container
+  .sixteen.columns
+    %h1 WebSQL
+    %form
+      %textarea{:placeholder => 'select * from table', :name => 'sql', :style => 'width: 100%'}
+      %button{:style => 'width: 100%'} Execute Query
+  %hr
+  .sixteen.columns
+    #results

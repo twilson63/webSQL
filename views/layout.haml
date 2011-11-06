@@ -1,0 +1,45 @@
+!!!
+/[if lt IE 7 ] <html class="ie ie6" lang="en">
+/[if IE 7 ] <html class="ie ie7" lang="en">
+/[if IE 8 ] <html class="ie ie8" lang="en">
+/ [if (gte IE 9)|!(IE)]><!
+%html{:lang => "en"}
+  / <![endif]
+  %head
+    %meta{:charset => "utf-8"}
+    %title wQuery Analyzer
+    %meta{:content => "", :name => "description"}
+    %meta{:content => "", :name => "author"}
+    /[if lt IE 9]
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    %meta{:content => "width=device-width, initial-scale=1, maximum-scale=1", :name => "viewport"}
+    %link{:href => "stylesheets/all.css", :rel => "stylesheet"}
+    %link{:href => "stylesheets/table.css", :rel => "stylesheet"}
+    %link{:href => "images/favicon.ico", :rel => "shortcut icon"}
+    %link{:href => "images/apple-touch-icon.png", :rel => "apple-touch-icon"}
+    %link{:href => "images/apple-touch-icon-72x72.png", :rel => "apple-touch-icon", :sizes => "72x72"}
+    %link{:href => "images/apple-touch-icon-114x114.png", :rel => "apple-touch-icon", :sizes => "114x114"}
+  %body
+    = yield
+    %script{:src => "http://cdnjs.cloudflare.com/ajax/libs/zepto/0.7/zepto.min.js"}
+    %script{:src => 'http://cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.0.0.beta2/handlebars.min.js'}
+    / %script{:src => "https://raw.github.com/madrobby/keymaster/master/keymaster.min.js"}
+    %script{:src => "http://cdnjs.cloudflare.com/ajax/libs/coffee-script/1.1.2/coffee-script.min.js"}
+    %script{:type => 'text/coffeescript'}
+      :erb
+        $('form').bind 'submit', ->
+          $('#results').html 'Running Query....' 
+          $.post '/', sql: $('textarea').val(), ((body) -> 
+            if body.error?
+              $('#results').html(body.error)
+            else
+              table = $('<table></table>')
+              tr = $('<tr></tr>').appendTo(table)
+              $("<th>#{c}</th>").appendTo(tr) for c in body.columns
+              for row in body.rows
+                tr = $('<tr></tr>').appendTo(table)
+                $("<td>#{v}</td>").appendTo(tr) for k,v of row
+              $('#results').html(table)
+          ), 'json'
+          
+          false

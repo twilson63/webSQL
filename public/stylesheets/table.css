@@ -1,0 +1,17 @@
+table {
+  margin: 5px;
+  padding: 5px;
+  border: 1px solid gray;
+}
+
+table tr td, table tr th {
+  margin: 5px;
+  padding: 5px;
+  border: 1px solid gray;
+  
+}
+
+table tr th {
+  color: white;
+  background: black;
+}

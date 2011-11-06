@@ -1,0 +1,5 @@
+gem 'sinatra'
+gem 'sequel'
+gem 'tiny_tds'
+gem 'haml'
+gem 'json'
